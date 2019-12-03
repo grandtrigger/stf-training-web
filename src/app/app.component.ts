@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from './core/entity/Category';
 
+/**
+ * Inicializa a lista de Categorias, importa o componente que exibe esta listagem
+ */
 @Component({
   selector: 'stf-root',
   templateUrl: './app.component.html',
@@ -8,15 +12,36 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   appTitle = 'Money App';
 
-  categoryList: Array<Category> = new Array();
+  private categoryList: Array<Category> = new Array();
+
+  constructor() {
+    
+  }
 
   ngOnInit() {
+    // Simula uma Promise para exibir a lista de categorias
     setTimeout(() => {
       this.getCategoryList();
     }, 2000);
+
+    this.createCategory();
+
+    console.log('APPCOMPONENT: executando onInit');
   }
 
-  getCategoryList() {
+  /**
+   * Gera uma nova categoria {@link Category}
+   */
+  private createCategory() {
+    setTimeout(() => {
+      this.categoryList.push({ id: 7, nome: "Cartão" });
+    }, 4000);
+  }
+
+  /**
+   * Gera uma lista de {@link Category} mockada
+   */
+  private getCategoryList() {
     this.categoryList = new Array(
       {
         id: 1,
@@ -44,9 +69,4 @@ export class AppComponent implements OnInit {
       }
     );
   }
-}
-
-export interface Category {
-  id: number,
-  nome: string
 }
