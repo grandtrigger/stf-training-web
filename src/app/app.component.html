@@ -4,3 +4,13 @@
   </mat-toolbar-row>
 
 </mat-toolbar>
+
+<section>
+  <div *ngIf="!categoryList.length; else categoryListComponent">
+    <p id="no-content">Oi! Aguarde alguns segundos enquanto carregamos suas categorias.</p>
+  </div>
+
+  <ng-template #categoryListComponent>
+    <stf-category-list [categoryList]="categoryList"></stf-category-list>
+  </ng-template>
+</section>
