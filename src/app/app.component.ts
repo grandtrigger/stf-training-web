@@ -12,7 +12,7 @@ import { Category } from './core/entity/Category';
 export class AppComponent implements OnInit {
   appTitle = 'Money App';
 
-  private categoryList: Array<Category> = new Array();
+  public categoryList: Array<Category> = new Array();
 
   constructor() {
     
