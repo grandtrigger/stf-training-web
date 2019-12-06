@@ -8,14 +8,14 @@
 <section class="container main-content" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="15px"
   fxLayoutGap.xs="0">
   <div fxFlex="20%">
-    <div *ngIf="!categoryList.length; else categoryListComponent">
+    <div *ngIf="!(futuro | async)?.list.length; else categoryListComponent">
       <p id="no-content">Oi! Aguarde alguns segundos enquanto carregamos suas categorias.</p>
     </div>
 
     <ng-template #categoryListComponent>
       <!-- lista de categorias -->
       <div>
-        <stf-category-list [categoryList]="categoryList"></stf-category-list>
+        <stf-category-list [categoryList]="(futuro | async)?.list"></stf-category-list>
       </div>
     </ng-template>
   </div>

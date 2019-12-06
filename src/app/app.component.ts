@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from './core/entity/Category';
-import { CategoryService } from './containers/category/category.service';
+import { CategoryService, CategoryServiceType } from './containers/category/category.service';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 /**
  * Inicializa a lista de Categorias, importa o componente que exibe esta listagem
@@ -11,33 +12,23 @@ import { CategoryService } from './containers/category/category.service';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  appTitle = 'Money App';
+  public appTitle: string = 'Money App';
 
-  public categoryList: Array<Category> = new Array();
+  public futuro: BehaviorSubject<CategoryServiceType>;
 
+  
   constructor(private categoryService: CategoryService) { }
 
-  ngOnInit() {
-    this.getCategoryList();
-  }
 
-  /**
-   * Gera uma nova categoria {@link Category}
-   */
-  private createCategory() {
-    setTimeout(() => {
-      this.categoryList.push({ id: 7, nome: "Cartão" });
-    }, 4000);
+  ngOnInit() {
+    this.futuro = this.categoryService.categoryBehaviorSubject;
+    this.getCategoryList();
   }
 
   /**
    * Gera uma lista de {@link Category} mockada
    */
   private getCategoryList() {
-    this.categoryService.getCategoryList().subscribe(
-      result => {
-        this.categoryList = result;
-      }
-    );
+    this.categoryService.getCategoryList();
   }
 }
