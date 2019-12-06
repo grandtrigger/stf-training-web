@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from './core/entity/Category';
+import { CategoryService } from './containers/category/category.service';
 
 /**
  * Inicializa a lista de Categorias, importa o componente que exibe esta listagem
@@ -14,19 +15,10 @@ export class AppComponent implements OnInit {
 
   public categoryList: Array<Category> = new Array();
 
-  constructor() {
-    
-  }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
-    // Simula uma Promise para exibir a lista de categorias
-    setTimeout(() => {
-      this.getCategoryList();
-    }, 2000);
-
-    this.createCategory();
-
-    console.log('APPCOMPONENT: executando onInit');
+    this.getCategoryList();
   }
 
   /**
@@ -42,30 +34,9 @@ export class AppComponent implements OnInit {
    * Gera uma lista de {@link Category} mockada
    */
   private getCategoryList() {
-    this.categoryList = new Array(
-      {
-        id: 1,
-        nome: "Lazer"
-      },
-      {
-        id: 2,
-        nome: "Alimentação"
-      },
-      {
-        id: 3,
-        nome: "Supermercado"
-      },
-      {
-        id: 4,
-        nome: "Farmácia"
-      },
-      {
-        id: 5,
-        nome: "Estudo"
-      },
-      {
-        id: 6,
-        nome: "Outros"
+    this.categoryService.getCategoryList().subscribe(
+      result => {
+        this.categoryList = result;
       }
     );
   }

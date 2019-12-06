@@ -1,13 +1,17 @@
 <article>
-    <form [formGroup]="categoryForm">
+    <form #categoryFormModel="ngForm" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
         <mat-form-field class="form-field">
             <input matInput placeholder="Nome da Categoria" formControlName="nomeControl">
+
+            <mat-error *ngIf="categoryForm.get('nomeControl').hasError('required')">
+                Este campo é obrigatório
+            </mat-error>
+
+            <mat-error *ngIf="categoryForm.get('nomeControl').hasError('minlength')">
+                Mínimo de 3 caracteres
+            </mat-error>
         </mat-form-field>
 
-        <div>
-            <p>{{ categoryForm.get('nomeControl').value }}</p>
-        </div>
-
-        <button mat-button color="primary" (click)="onSubmit()">Salvar</button>
+        <button type="submit" mat-button color="primary" [disabled]="!categoryForm.valid">Salvar</button>
     </form>
 </article>
