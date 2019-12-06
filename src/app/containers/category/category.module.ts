@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseMaterialModule } from 'src/app/core/config/base-material.module';
@@ -14,7 +15,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
   imports: [
     CommonModule,
     BaseMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [CategoryListComponent, CategoryDetailComponent]
 })
